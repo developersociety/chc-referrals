@@ -21,11 +21,12 @@
 <script type="text/javascript">
   window.addEventListener("DOMContentLoaded", function() {
     var el = document.getElementById("typeform");
-
-    window.typeformEmbed.makeWidget(el, el.dataset.formUrl, {
-      hideFooter: true,
-      hideHeaders: true,
-      opacity: 0
-    });
+    if (el) {
+      window.typeformEmbed.makeWidget(el, el.dataset.formUrl, {
+        hideFooter: true,
+        hideHeaders: true,
+        opacity: 0
+      });
+    }
   });
 </script>

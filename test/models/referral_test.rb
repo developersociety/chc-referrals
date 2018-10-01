@@ -30,7 +30,6 @@ class ReferralTest < ActiveSupport::TestCase
   end
 
   test '#last_state review' do
-    @subject.original_response = { form_response: { calculated: { score: 0 } } }
     assert_equal('review', @subject.last_state)
   end
 
@@ -48,16 +47,20 @@ class ReferralTest < ActiveSupport::TestCase
   end
 
   test '#response_answers not found' do
+    @subject.original_response = {}
     assert_nil(@subject.response_answers)
   end
 
   test '#response_answers found' do
-    @subject.original_response = {
-      form_response: {
-        definition: { fields: [{ title: 'q1' }, { title: 'q2' }] },
-        answers: [{ text: 'a1' }, { text: 'a2' }]
-      }
-    }
     assert_equal({ 'q1' => 'a1', 'q2' => 'a2' }, @subject.response_answers)
+  end
+
+  test '#response_identifier found' do
+    assert_equal('a1', @subject.response_identifier)
+  end
+
+  test '#response_identifier not found' do
+    @subject.partner.form_identifier = nil
+    assert_equal('-', @subject.response_identifier)
   end
 end

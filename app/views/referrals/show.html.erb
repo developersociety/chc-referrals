@@ -1,0 +1,14 @@
+<%= link_to('< Go back', :back) %>
+
+<p>
+  <%= @referral.partner.name %>
+  &middot;
+  <%= @referral.last_state %>
+  &middot;
+  <%= @referral.created_at %>
+</p>
+
+<% @referral.response_answers.each do |question, answer| %>
+  <strong><%= question %></strong>
+  <p><%= answer %></p>
+<% end %>

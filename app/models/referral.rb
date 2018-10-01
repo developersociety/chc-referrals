@@ -34,6 +34,11 @@ class Referral < ApplicationRecord
     questions.zip(answers).to_h if questions && answers
   end
 
+  def response_identifier
+    answers = response_answers || {}
+    answers.fetch(partner.form_identifier, '-')
+  end
+
   private
 
   def extract_values(array)

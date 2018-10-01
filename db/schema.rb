@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2018_10_01_103526) do
   create_table "partners", force: :cascade do |t|
     t.boolean "accepting_referrals", default: true, null: false
     t.string "form_url", null: false
+    t.string "form_identifier"
     t.string "name", null: false
     t.integer "max_monthly_referrals", null: false
     t.string "slug", null: false

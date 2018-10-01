@@ -8,4 +8,13 @@ class ReferralsController < ApplicationController
       render_status(404)
     end
   end
+
+  def index
+    @referrals = Referral.all
+  end
+
+  def show
+    @referral = Referral.find_by(id: params[:id])
+    render_status(404) if @referral.nil?
+  end
 end

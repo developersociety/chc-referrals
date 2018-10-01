@@ -43,6 +43,13 @@ class PartnerReferralTest < ApplicationSystemTestCase
     assert_selector('span', text: '0')
   end
 
+  test 'page reloads when max_monthly_referrals reached' do
+    @partner.update(max_monthly_referrals: 1)
+    visit new_partner_referral_path(@partner)
+    send_fake_webhook_request(@partner)
+    assert_text('No more referral slots available this month.')
+  end
+
   def send_fake_webhook_request(partner)
     fake_webhook_request(
       webhooks_new_response_path(partner.webhook_token),

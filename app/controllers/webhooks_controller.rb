@@ -15,6 +15,7 @@ class WebhooksController < ApplicationController
         ActionCable.server.broadcast(
           'referrals',
           partner: partner.slug,
+          max_referrals: partner.max_monthly_referrals,
           sent_referrals: partner.referrals.by_month(Time.zone.now.month).size
         )
         head :ok
