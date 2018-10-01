@@ -12,6 +12,14 @@ class PartnerTest < ActiveSupport::TestCase
     assert_equal(2, @subject.referrals.size)
   end
 
+  test 'self#active' do
+    @subject.save!
+    query = @subject.class.active
+    assert_equal(1, query.size)
+    @subject.update!(accepting_referrals: false)
+    assert_equal(0, query.size)
+  end
+
   test '#accepting_referrals default' do
     assert_equal(true, @subject.accepting_referrals)
   end

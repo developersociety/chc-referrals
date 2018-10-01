@@ -13,6 +13,10 @@ class Partner < ApplicationRecord
     greater_than_or_equal_to: 0
   }
 
+  def self.active
+    where(accepting_referrals: true)
+  end
+
   def can_accept_referrals?
     referrals.by_month(Time.zone.now.month)
              .where.not(last_state: 'declined').size < max_monthly_referrals

@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/:slug/referrals/new', to: 'referrals#new', as: 'new_partner_referral'
+  post '/webhooks/new-response/:token', to: 'webhooks#new_response', as: 'webhooks_new_response'
 end

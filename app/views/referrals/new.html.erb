@@ -1,0 +1,31 @@
+<% if @partner.can_accept_referrals? %>
+  <%= tag.div(id: 'typeform', data: { form_url: @partner.form_url }) %>
+<% else %>
+  <div>
+    No more referral slots available this month.
+    <%= tag.a('Make an Emergency referral', href: @partner.form_url, target: '_blank') %>
+  </div>
+<% end %>
+
+<h3>
+  Available
+  <%= @partner.max_monthly_referrals %>
+</h3>
+
+<h3>
+  Sent
+  <%= tag.span(@referrals.size, id: "#{@partner.slug}-sent-referrals") %>
+</h3>
+
+<script src="https://embed.typeform.com/embed.js" type="text/javascript"></script>
+<script type="text/javascript">
+  window.addEventListener("DOMContentLoaded", function() {
+    var el = document.getElementById("typeform");
+
+    window.typeformEmbed.makeWidget(el, el.dataset.formUrl, {
+      hideFooter: true,
+      hideHeaders: true,
+      opacity: 0
+    });
+  });
+</script>
