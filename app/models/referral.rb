@@ -2,6 +2,9 @@ class Referral < ApplicationRecord
   STATES = %w[accepted declined review].freeze
 
   belongs_to :partner
+  acts_as_sequenced scope: :partner_id
+
+  has_many :reviews
 
   validates :last_state, inclusion: { in: STATES }
   validates :original_response, presence: true
@@ -37,6 +40,10 @@ class Referral < ApplicationRecord
   def response_identifier
     answers = response_answers || {}
     answers.fetch(partner.form_identifier, '-')
+  end
+
+  def to_param
+    sequential_id.to_s
   end
 
   private

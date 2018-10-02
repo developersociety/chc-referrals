@@ -1,4 +1,4 @@
-<%= link_to('< Go back', :back) %>
+<%= link_to('< Go back', referrals_path) %>
 
 <p>
   <%= @referral.partner.name %>
@@ -11,4 +11,32 @@
 <% @referral.response_answers.each do |question, answer| %>
   <strong><%= question %></strong>
   <p><%= answer %></p>
+<% end %>
+
+<hr/>
+
+<% @referral.reviews.each do |review| %>
+  <p><%= review.notes %></p>
+  <small>
+    <%= review.state.capitalize %>
+    <%= time_ago_in_words(review.created_at) %> ago
+  </small>
+<% end %>
+
+<hr/>
+
+<%= simple_form_for @referral.reviews.new, url: new_referral_review_path(@referral) do |f| %>
+  <%= f.input :notes %>
+
+  <% if @referral.last_state == 'accepted' %>
+    <%= f.button :submit, value: 'Accepted', disabled: true %>
+  <% else %>
+    <%= f.button :submit, value: 'Accept', data: { disable_with: 'Accepting...', confirm: 'Are you sure you want to accept this referral?' }, class: 'confirm' %>
+  <% end %>
+
+  <% if @referral.last_state == 'declined' %>
+    <%= f.button :submit, value: 'Declined', disabled: true %>
+  <% else %>
+    <%= f.button :submit, value: 'Decline', data: { disable_with: 'Declining...', confirm: 'Are you sure you want to decline this referral?' }, class: 'confirm' %>
+  <% end %>
 <% end %>

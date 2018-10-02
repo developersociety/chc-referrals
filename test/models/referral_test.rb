@@ -63,4 +63,16 @@ class ReferralTest < ActiveSupport::TestCase
     @subject.partner.form_identifier = nil
     assert_equal('-', @subject.response_identifier)
   end
+
+  test '#sequential_id increments by Partner' do
+    @subject.save!
+    assert_equal(1, @subject.sequential_id)
+    assert_equal(2, create(:referral, partner: @subject.partner).sequential_id)
+    assert_equal(1, create(:referral, partner: build(:partner)).sequential_id)
+  end
+
+  test '#to_param' do
+    @subject.save!
+    assert_equal(@subject.sequential_id.to_s, @subject.to_param)
+  end
 end

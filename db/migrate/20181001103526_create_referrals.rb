@@ -4,6 +4,7 @@ class CreateReferrals < ActiveRecord::Migration[5.2]
       t.references :partner, foreign_key: true, index: true
       t.string :last_state, default: 'review', null: false
       t.jsonb :original_response, default: {}, null: false
+      t.integer :sequential_id, null: false, index: true
 
       t.timestamps
     end

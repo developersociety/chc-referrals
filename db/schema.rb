@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_01_103526) do
+ActiveRecord::Schema.define(version: 2018_10_01_202641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,10 +33,25 @@ ActiveRecord::Schema.define(version: 2018_10_01_103526) do
     t.bigint "partner_id"
     t.string "last_state", default: "review", null: false
     t.jsonb "original_response", default: {}, null: false
+    t.integer "sequential_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["partner_id"], name: "index_referrals_on_partner_id"
+    t.index ["sequential_id"], name: "index_referrals_on_sequential_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "referral_id"
+    t.integer "position", null: false
+    t.string "state", null: false
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["position"], name: "index_reviews_on_position"
+    t.index ["referral_id"], name: "index_reviews_on_referral_id"
+    t.index ["state"], name: "index_reviews_on_state"
   end
 
   add_foreign_key "referrals", "partners"
+  add_foreign_key "reviews", "referrals"
 end

@@ -8,7 +8,7 @@
       <%= r.last_state %>
       &middot;
       <%= r.created_at %>
-      <%= link_to('View', referral_path(r)) %>
+      <%= link_to('View', referral_path(r.partner, r)) %>
     </li>
   <% end %>
 </ul>

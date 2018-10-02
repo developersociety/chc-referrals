@@ -10,7 +10,7 @@ class ReferralsController < ApplicationController
   end
 
   def index
-    @referrals = Referral.all
+    @referrals = Referral.order(created_at: :desc)
   end
 
   def show
