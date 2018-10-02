@@ -4,6 +4,7 @@ class ReferralsController < ApplicationController
 
     if @partner
       @referrals = @partner.referrals.by_month(Time.zone.now.month)
+      @used_referrals = @referrals.used
     else
       render_status(404)
     end

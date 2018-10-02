@@ -17,6 +17,14 @@ class ReferralTest < ActiveSupport::TestCase
     assert_equal(1, query.size)
   end
 
+  test 'self#used' do
+    @subject.save!
+    create(:referral, last_state: 'accepted', partner: @subject.partner)
+    create(:referral, last_state: 'declined', partner: @subject.partner)
+    query = @subject.class.used
+    assert_equal(2, query.size)
+  end
+
   test '#emails' do
     email = 'email@example.com'
     @subject.original_response = {

@@ -16,7 +16,7 @@ class WebhooksController < ApplicationController
           'referrals',
           partner: partner.slug,
           max_referrals: partner.max_monthly_referrals,
-          sent_referrals: partner.referrals.by_month(Time.zone.now.month).size
+          used_referrals: partner.referrals.used.by_month(Time.zone.now.month).size
         )
         head :ok
       else

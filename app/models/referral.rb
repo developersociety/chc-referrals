@@ -13,6 +13,10 @@ class Referral < ApplicationRecord
     where("extract(month from #{col}) = ?", month)
   end
 
+  def self.used
+    where.not(last_state: 'declined')
+  end
+
   def emails
     response = original_response&.with_indifferent_access
 
