@@ -18,7 +18,8 @@
 <% @referral.reviews.each do |review| %>
   <p><%= review.notes %></p>
   <small>
-    <%= review.state.capitalize %>
+    <%= review.user.first_name.capitalize %>
+    <%= review.state %>
     <%= time_ago_in_words(review.created_at) %> ago
   </small>
 <% end %>

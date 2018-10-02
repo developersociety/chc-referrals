@@ -1,4 +1,6 @@
 class ReferralsController < ApplicationController
+  before_action :authenticate_user!, except: :new
+
   def new
     @partner = Partner.active.find_by(slug: params[:slug])
 
@@ -15,7 +17,7 @@ class ReferralsController < ApplicationController
   end
 
   def show
-    @referral = Referral.find_by(id: params[:id])
+    @referral = Referral.find_by(sequential_id: params[:id])
     render_status(404) if @referral.nil?
   end
 end

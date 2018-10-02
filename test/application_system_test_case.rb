@@ -12,4 +12,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       req.body = body.to_json
     end
   end
+
+  def sign_in(user = @user)
+    fill_in(:user_email, with: user.email)
+    fill_in(:user_password, with: user.password)
+    click_button('Log in')
+  end
 end
