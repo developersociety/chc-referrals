@@ -1,0 +1,23 @@
+<p><%= "#{Date::MONTHNAMES[@date.month]} Referrals #{Time.zone.now.year}" %></p>
+
+Available
+<%= @partners.sum(:max_monthly_referrals) - @usage.values.sum %>
+Used
+<%= @usage.values.sum %>
+
+<hr/>
+
+<% @partners.each do |partner| %>
+  <li>
+    <%= link_to(partner.name, new_partner_referral_path(partner), data: { turbolinks: false }) %>
+    Available
+    <%= partner.max_monthly_referrals - (@usage[partner.slug] || 0) %>
+    Used
+    <%=(@usage[partner.slug] || 0) %>
+  </li>
+<% end %>
+
+<% if @date.month < Date.today.month %>
+  <%= link_to('Next', root_path(date: @date + 1.month)) %>
+<% end %>
+<%= link_to('Prev', root_path(date: @date - 1.month)) %>
