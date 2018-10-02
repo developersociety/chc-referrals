@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :users
+
+  # TODO: change
+  root 'referrals#index'
+
   get '/:slug/referrals/new', to: 'referrals#new', as: 'new_partner_referral'
   get '/referrals', to: 'referrals#index', as: 'referrals'
   get '/:slug/referrals/:id', to: 'referrals#show', as: 'referral'

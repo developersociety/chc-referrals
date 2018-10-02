@@ -11,6 +11,10 @@ class ReviewTest < ActiveSupport::TestCase
     assert_instance_of(Referral, @subject.referral)
   end
 
+  test 'belongs_to User' do
+    assert_instance_of(User, @subject.user)
+  end
+
   test '#position increments by Referral' do
     @subject.save!
     assert_equal(1, @subject.position)
