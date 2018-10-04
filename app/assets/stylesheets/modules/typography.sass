@@ -1,0 +1,50 @@
+// Config
+// ===========================================================================
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700')
+
+$heading-family: 'Open Sans', Helvetica, sans-serif !default
+$body-family: 'Open Sans', Helvetica, sans-serif !default
+
+$regular-weight: 400
+$bold-weight:    700
+
+// Base
+// ===========================================================================
+
+body, button, input, select, textarea
+  font-family: $body-family
+
+h1, h2, h3
+  font-family: $heading-family
+
+// Type scale
+// =========================================================================
+
+h1, .h1
+  font-size: 30px
+h2, .h2
+  font-size: 22px
+h3, .h3
+  font-size: 18px
+
+// Emphasis
+// =========================================================================
+
+.bold
+  font-weight: $bold-weight
+.underline
+  text-decoration: underline !important
+.no-decoration
+  text-decoration: none !important
+
+// Utility
+// =========================================================================
+
+.center
+  text-align: center
+.truncate
+  max-width: 100%
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap

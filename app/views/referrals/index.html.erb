@@ -1,14 +1,46 @@
-<ul>
-  <% @referrals.each do |r| %>
-    <li>
-      <%= r.response_identifier %>
-      &middot;
-      <%= r.partner.name %>
-      &middot;
-      <%= r.last_state %>
-      &middot;
-      <%= r.created_at %>
-      <%= link_to('View', referral_path(r.partner, r)) %>
-    </li>
-  <% end %>
-</ul>
+<section class="px15">
+  <div class="mw-767 mx-auto">
+
+    <div class="mt50 mb40">
+
+      <% if @referrals.any? %>
+
+        <div class="row bold h2">
+          <div class="sm f1 truncate">Identifier</div>
+          <div class="sm f1 truncate">Partner</div>
+          <div class="sm f1 truncate">Status</div>
+          <div class="sm f1 truncate">Date</div>
+        </div>
+
+        <% @referrals.each do |r| %>
+
+          <%= link_to(
+            referral_path(r.partner, r),
+            class: "row h3 mb10 #{requires_review(r.last_state)}"
+          ) do %>
+            <span class="sm f1 truncate bold">
+              <%= r.response_identifier %>
+            </span>
+            <span class="sm f1 truncate">
+              <%= r.partner.name %>
+            </span>
+            <%= status_text(r.last_state) %>
+            <span class="sm f1 truncate">
+              <%= r.created_at.strftime('%d / %m / %y') %>
+            </span>
+          <% end %>
+
+        <% end %>
+
+      <% else %>
+
+        <div class="center">No referrals this month.</div>
+
+      <% end %>
+
+    </div>
+
+    <%= render(partial: 'layouts/month_picker', locals: { date: @date, path: :referrals_path }) %>
+
+  </div>
+</section>

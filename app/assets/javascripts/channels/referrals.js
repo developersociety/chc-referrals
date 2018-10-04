@@ -6,10 +6,13 @@ App.status = App.cable.subscriptions.create("ReferralsChannel", {
       }
     }
 
-    var el = document.getElementById(data.partner + "-used-referrals");
+    var available = document.getElementById("available-referrals");
+    var used = document.getElementById(data.partner + "-used-referrals");
 
-    if (el) {
-      return el.innerHTML = data.used_referrals;
+    if (available && used) {
+      available.innerText = data.max_referrals - data.used_referrals;
+      used.innerText = data.used_referrals;
+      return;
     } else {
       return;
     }

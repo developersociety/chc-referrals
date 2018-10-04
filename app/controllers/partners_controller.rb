@@ -8,6 +8,8 @@ class PartnersController < ApplicationController
                        .by_month(@date.month, col: 'referrals.created_at')
                        .group('partners.slug').size
 
-    @partners = Partner.active.all
+    @partners = Partner.active.order(:name)
+
+    @total_available = @partners.sum(:max_monthly_referrals) - @usage.values.sum
   end
 end

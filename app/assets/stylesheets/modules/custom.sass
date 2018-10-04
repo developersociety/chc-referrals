@@ -1,0 +1,71 @@
+nav
+  background: $white
+  border-bottom: 2px solid $maroon
+.nav-item
+  display: inline-block
+  padding-top: 35px
+  padding-bottom: 18px
+  border-bottom: 8px solid transparent
+  &:hover, &.active
+    border-bottom: 8px solid $maroon
+    text-decoration: none
+
+#typeform
+  height: 400px
+
+.answer
+  padding: 0 15px 15px
+  &:first-child
+    padding: 15px
+
+.row
+  display: flex
+  .sm, .md, .lg
+    padding: 0 15px
+  .md, .lg
+    font-weight: bold
+    border-radius: $base-radius
+    background: $white
+    display: flex
+    align-items: center
+  .sm
+    height: 60px
+    line-height: 60px
+  .md
+    height: 70px
+    font-size: 18px
+  .lg
+    height: 120px
+    font-size: 22px
+  .stat-sm, .stat-lg
+    justify-content: center
+  .stat-sm
+    font-size: 40px
+    line-height: 70px
+  .stat-lg
+    font-size: 90px
+    line-height: 120px
+  .f1
+    flex: 1
+  .fr1
+    flex: 3
+    min-width: 176px
+  .fr2
+    flex: 7
+    min-width: 290px
+  &.wrap
+    flex-wrap: wrap
+  &.with-bg, &.with-bg-black
+    border-radius: $base-radius
+  &.with-bg
+    background: $white
+    color: $black
+  &.with-bg-black
+    background: $black
+    color: $white
+  &.with-gutter
+    margin-left: -10px
+    margin-right: -10px
+    & > *
+      margin-left: 10px
+      margin-right: 10px

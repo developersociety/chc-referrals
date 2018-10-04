@@ -10,7 +10,8 @@ class ReferralReviewTest < ApplicationSystemTestCase
   test 'accepts referral' do
     visit root_path
     sign_in
-    click_link('View')
+    click_link('Referrals')
+    find('a.row', match: :first).click
     click_button('Accept')
     page.accept_confirm
 
@@ -19,9 +20,8 @@ class ReferralReviewTest < ApplicationSystemTestCase
   end
 
   test 'declines referral' do
-    visit root_path
+    visit referral_path(@partner, @referral)
     sign_in
-    click_link('View')
     click_button('Decline')
     page.accept_confirm
 
@@ -59,7 +59,8 @@ class ReferralReviewTest < ApplicationSystemTestCase
     assert_current_path(new_user_session_path)
   end
 
-  test 'not signed in referral_path' do visit referral_path(@partner, @referral)
+  test 'not signed in referral_path' do
+    visit referral_path(@partner, @referral)
     assert_current_path(new_user_session_path)
   end
 
@@ -68,4 +69,8 @@ class ReferralReviewTest < ApplicationSystemTestCase
     sign_in
     assert_text("The page you were looking for doesn't exist.")
   end
+
+  test 'status_text(declined) is red on index and show'
+  test '#requires_review(state) referrals to review are black'
+  test 'referrals has underline'
 end

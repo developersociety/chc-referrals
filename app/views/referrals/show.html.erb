@@ -1,43 +1,77 @@
-<%= link_to('< Go back', referrals_path) %>
+<section class="px15">
+  <div class="mw-767 mx-auto">
 
-<p>
-  <%= @referral.partner.name %>
-  &middot;
-  <%= @referral.last_state %>
-  &middot;
-  <%= @referral.created_at %>
-</p>
+    <div class="mt50 mb20">
+      <%= link_to("❮ Go back", referrals_path, class: "h1 bold underline") %>
+    </div>
 
-<% @referral.response_answers.each do |question, answer| %>
-  <strong><%= question %></strong>
-  <p><%= answer %></p>
-<% end %>
+    <div class="row bold h2">
+      <div class="sm f1 truncate">Identifier</div>
+      <div class="sm f1 truncate">Partner</div>
+      <div class="sm f1 truncate">Status</div>
+      <div class="sm f1 truncate">Date</div>
+    </div>
 
-<hr/>
+    <div class="row with-bg h3 black mb20">
+      <span class="sm f1 truncate bold">
+        <%= @referral.response_identifier %>
+      </span>
+      <span class="sm f1 truncate">
+        <%= @referral.partner.name %>
+      </span>
+      <%= status_text(@referral.last_state) %>
+      <span class="sm f1 truncate">
+        <%= @referral.created_at.strftime('%d / %m / %y') %>
+      </span>
+    </div>
 
-<% @referral.reviews.each do |review| %>
-  <p><%= review.notes %></p>
-  <small>
-    <%= review.user.first_name.capitalize %>
-    <%= review.state %>
-    <%= time_ago_in_words(review.created_at) %> ago
-  </small>
-<% end %>
+    <div class="mb20 bg-white rounded">
+      <% @referral.response_answers&.each do |question, answer| %>
+        <div class="answer">
+          <strong><%= question %></strong>
+          <p><%= answer %></p>
+        </div>
+      <% end %>
+    </div>
 
-<hr/>
+    <h2 class="bold mb20">Status changes</h2>
 
-<%= simple_form_for @referral.reviews.new, url: new_referral_review_path(@referral) do |f| %>
-  <%= f.input :notes %>
+    <% @referral.reviews.each do |review| %>
+      <div class="mb20">
+        <small class="block mb10">
+          <%= review.user.first_name.capitalize %>
+          <%= review.state %>
+          <%= time_ago_in_words(review.created_at) %> ago
+        </small>
+        <% if review.notes.present? %>
+          <div class="p15 bg-white rounded">
+            <strong>Note:</strong>
+            <p><%= review.notes %></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
 
-  <% if @referral.last_state == 'accepted' %>
-    <%= f.button :submit, value: 'Accepted', disabled: true %>
-  <% else %>
-    <%= f.button :submit, value: 'Accept', data: { disable_with: 'Accepting...', confirm: 'Are you sure you want to accept this referral?' }, class: 'confirm' %>
-  <% end %>
+    <%# TODO: style form %>
+    <div class="p15 bg-white rounded">
+      <h3 class="bold mb20">Change status</h3>
 
-  <% if @referral.last_state == 'declined' %>
-    <%= f.button :submit, value: 'Declined', disabled: true %>
-  <% else %>
-    <%= f.button :submit, value: 'Decline', data: { disable_with: 'Declining...', confirm: 'Are you sure you want to decline this referral?' }, class: 'confirm' %>
-  <% end %>
-<% end %>
+      <%= simple_form_for @referral.reviews.new, url: new_referral_review_path(@referral) do |f| %>
+        <%= f.input :notes %>
+
+        <% if @referral.last_state == 'accepted' %>
+          <%= f.button :submit, value: 'Accepted', disabled: true %>
+        <% else %>
+          <%= f.button :submit, value: 'Accept', data: { disable_with: 'Accepting...', confirm: 'Are you sure you want to accept this referral?' }, class: 'confirm' %>
+        <% end %>
+
+        <% if @referral.last_state == 'declined' %>
+          <%= f.button :submit, value: 'Declined', disabled: true %>
+        <% else %>
+          <%= f.button :submit, value: 'Decline', data: { disable_with: 'Declining...', confirm: 'Are you sure you want to decline this referral?' }, class: 'confirm' %>
+        <% end %>
+      <% end %>
+    </div>
+
+ </div>
+</section>

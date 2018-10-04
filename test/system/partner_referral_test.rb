@@ -26,7 +26,8 @@ class PartnerReferralTest < ApplicationSystemTestCase
 
     send_fake_webhook_request(@partner)
 
-    assert_text('Sent 1')
+    within('#available-referrals') { assert_text('9') }
+    within("##{@partner.slug}-used-referrals") { assert_text('1') }
   end
 
   test 'all Referral slots taken' do
@@ -41,14 +42,14 @@ class PartnerReferralTest < ApplicationSystemTestCase
     create(:referral, partner: @partner, last_state: 'accepted')
     create(:referral, partner: @partner, last_state: 'declined')
     visit new_partner_referral_path(@partner)
-    assert_text('Available 8')
+    within('#available-referrals') { assert_text('8') }
   end
 
   test 'real time update per Partner' do
     @partner2 = create(:partner)
     visit new_partner_referral_path(@partner)
     send_fake_webhook_request(@partner2)
-    assert_text('Sent 0')
+    within("##{@partner.slug}-used-referrals") { assert_text('0') }
   end
 
   test 'form hidden when all Referrals used' do
@@ -57,6 +58,8 @@ class PartnerReferralTest < ApplicationSystemTestCase
     send_fake_webhook_request(@partner)
     assert_text('No more referral slots available this month.')
   end
+
+  test 'emergency referall displayed as?'
 
   def send_fake_webhook_request(partner)
     fake_webhook_request(

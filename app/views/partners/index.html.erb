@@ -1,23 +1,61 @@
-<p><%= "#{Date::MONTHNAMES[@date.month]} Referrals #{Time.zone.now.year}" %></p>
+<section class="px15">
+  <div class="mw-767 mx-auto">
 
-Available
-<%= @partners.sum(:max_monthly_referrals) - @usage.values.sum %>
-Used
-<%= @usage.values.sum %>
+    <h1 class="bold maroon mt50 mb40">
+      <%= "#{Date::MONTHNAMES[@date.month]} Referrals #{Time.zone.now.year}" %>
+    </h1>
 
-<hr/>
+    <div class="row with-gutter wrap">
 
-<% @partners.each do |partner| %>
-  <li>
-    <%= link_to(partner.name, new_partner_referral_path(partner), data: { turbolinks: false }) %>
-    Available
-    <%= partner.max_monthly_referrals - (@usage[partner.slug] || 0) %>
-    Used
-    <%=(@usage[partner.slug] || 0) %>
-  </li>
-<% end %>
+      <div class="fr2 mb20">
+        <h2 class="mb20"><br/></h2>
+        <div class="lg">
+          All referrals (<%= Referral.by_month(@date.month).size %> in total)
+        </div>
+      </div>
 
-<% if @date.month < Date.today.month %>
-  <%= link_to('Next', root_path(date: @date + 1.month)) %>
-<% end %>
-<%= link_to('Prev', root_path(date: @date - 1.month)) %>
+      <div class="fr1 mb20">
+        <h2 class="bold center mb20">Available</h2>
+        <%= tag.div(class: "lg stat-lg#{@total_available.zero? ? ' white bg-red' : ''}") do %>
+          <%= @total_available %>
+        <% end %>
+      </div>
+
+      <div class="fr1 mb20">
+        <h2 class="bold center mb20">Used</h2>
+        <div class="lg stat-lg white bg-black">
+          <%= @usage.values.sum %>
+        </div>
+      </div>
+
+    </div>
+
+    <h2 class="bold mb20">All Partners</h2>
+
+    <div class="mb20">
+      <% @partners.each do |partner| %>
+
+        <div class="row with-gutter wrap">
+
+          <%= link_to(
+            partner.name, new_partner_referral_path(partner),
+            data: { turbolinks: false }, class: "md fr2 black mb20"
+          ) %>
+
+          <%= tag.div(class: "md fr1 stat-sm mb20#{classes_none_available(partner, @usage)}") do %>
+            <%= partner.max_monthly_referrals - (@usage[partner.slug] || 0) %>
+          <% end %>
+
+          <div class="md fr1 stat-sm white bg-black mb20">
+            <%=(@usage[partner.slug] || 0) %>
+          </div>
+
+        </div>
+
+      <% end %>
+    </div>
+
+    <%= render(partial: 'layouts/month_picker', locals: { date: @date, path: :root_path }) %>
+
+  </div>
+</section>
