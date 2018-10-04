@@ -14,9 +14,9 @@ ActiveAdmin.register Partner do
     column :accepting_referrals
     column :max_monthly_referrals
     column 'Webhook URL' do |partner|
-      host = "#{request.host}:#{request.port}"
+      opts = { host: request.host, protocol: 'https' }
       url_helpers = Rails.application.routes.url_helpers
-      url_helpers.webhooks_new_response_url(partner.webhook_token, host: host)
+      url_helpers.webhooks_new_response_url(partner.webhook_token, opts)
     end
     actions
   end
