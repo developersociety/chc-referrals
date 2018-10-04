@@ -1,48 +1,40 @@
-<section class="px15 bg-white">
-  <div class="mw-767 mx-auto py40">
-    <% if @partner.can_accept_referrals? %>
-      <%= tag.div(id: "typeform", data: { form_url: @partner.form_url }) %>
-    <% else %>
-      <div class="center">
-        No more referral slots available this month.
-        <%= tag.a('Make an Emergency referral', href: @partner.form_url, target: '_blank') %>
-      </div>
+<div class="py40">
+  <% if @partner.can_accept_referrals? %>
+    <%= tag.div(id: "typeform", data: { form_url: @partner.form_url }) %>
+  <% else %>
+    <div class="center">
+      No more referral slots available this month.
+      <%= tag.a('Make an Emergency referral', href: @partner.form_url, target: '_blank') %>
+    </div>
+  <% end %>
+</div>
+
+<div class="row with-gutter wrap">
+
+  <div class="fr2 mb20">
+    <h2 class="mb20"><br/></h2>
+    <div class="lg">
+      Available referrals for
+      <%= "#{Date::MONTHNAMES[@date.month]} #{Time.zone.now.year}" %>
+    </div>
+  </div>
+
+  <div class="fr1 mb20">
+    <h2 class="bold center mb20">Available</h2>
+    <%= tag.div(id: "available-referrals", class: "lg stat-lg#{@total_available.zero? ? ' white bg-red' : ''}") do %>
+      <%= @total_available %>
     <% end %>
   </div>
-</section>
 
-<section class="px15">
-  <div class="mw-767 mx-auto mt40">
-
-    <div class="row with-gutter wrap">
-
-      <div class="fr2 mb20">
-        <h2 class="mb20"><br/></h2>
-        <div class="lg">
-          Available referrals for
-          <%= "#{Date::MONTHNAMES[@date.month]} #{Time.zone.now.year}" %>
-        </div>
-      </div>
-
-      <div class="fr1 mb20">
-        <h2 class="bold center mb20">Available</h2>
-        <%= tag.div(id: "available-referrals", class: "lg stat-lg#{@total_available.zero? ? ' white bg-red' : ''}") do %>
-          <%= @total_available %>
-        <% end %>
-      </div>
-
-      <div class="fr1 mb20">
-        <h2 class="bold center mb20">Sent</h2>
-        <%= tag.div(
-          @referrals.size, id: "#{@partner.slug}-used-referrals",
-          class: "lg stat-lg white bg-black"
-        ) %>
-      </div>
-
-    </div>
-
+  <div class="fr1 mb20">
+    <h2 class="bold center mb20">Sent</h2>
+    <%= tag.div(
+      @referrals.size, id: "#{@partner.slug}-used-referrals",
+      class: "lg stat-lg white bg-black"
+    ) %>
   </div>
-</section>
+
+</div>
 
 <script src="https://embed.typeform.com/embed.js" type="text/javascript"></script>
 <script type="text/javascript">

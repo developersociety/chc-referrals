@@ -23,15 +23,19 @@
       </nav>
     <% end %>
 
-    <main>
-      <section class="px15">
+    <% if alert || notice %>
+      <section class="px15 bg-black white py15">
         <div class="mw-767 mx-auto">
           <%= notice %>
           <%= alert %>
         </div>
       </section>
+    <% end %>
 
-      <%= yield %>
+    <main class="px15">
+      <div class="mw-767 mx-auto">
+        <%= yield %>
+      </div>
     </main>
 
     <footer class="flex justify-center items-center mt50 mb40">
