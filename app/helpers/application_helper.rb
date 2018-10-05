@@ -1,4 +1,3 @@
-# TODO: test
 module ApplicationHelper
   def classes_none_available(partner, usage)
     available = partner.max_monthly_referrals - (usage[partner.slug] || 0)

@@ -6,7 +6,7 @@ App.status = App.cable.subscriptions.create("ReferralsChannel", {
       }
     }
 
-    var available = document.getElementById("available-referrals");
+    var available = document.getElementById(data.partner + "-available-referrals");
     var used = document.getElementById(data.partner + "-used-referrals");
 
     if (available && used) {

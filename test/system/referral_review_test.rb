@@ -84,7 +84,7 @@ class ReferralReviewTest < ApplicationSystemTestCase
     assert_selector('.red', text: 'Declined')
   end
 
-  test '#requires_review(state) referrals to review are black' do
+  test 'referrals that require review are black' do
     visit referral_path(@partner, @referral)
     sign_in
     assert_selector('.white.bg-black', count: 1)

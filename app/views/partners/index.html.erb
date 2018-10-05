@@ -13,14 +13,14 @@
 
   <div class="fr1 mb20">
     <h2 class="bold center mb20">Available</h2>
-    <%= tag.div(class: "lg stat-lg#{@total_available.zero? ? ' white bg-red' : ''}") do %>
+    <%= tag.div(id: "all-available-referrals", class: "lg stat-lg#{@total_available.zero? ? ' white bg-red' : ''}") do %>
       <%= @total_available %>
     <% end %>
   </div>
 
   <div class="fr1 mb20">
     <h2 class="bold center mb20">Used</h2>
-    <div class="lg stat-lg white bg-black">
+    <div id="all-used-referrals" class="lg stat-lg white bg-black">
       <%= @usage.values.sum %>
     </div>
   </div>
@@ -39,13 +39,13 @@
         data: { turbolinks: false }, class: "md fr2 black mb20"
       ) %>
 
-      <%= tag.div(class: "md fr1 stat-sm mb20#{classes_none_available(partner, @usage)}") do %>
+      <%= tag.div(id: "#{partner.slug}-available-referrals", class: "md fr1 stat-sm mb20#{classes_none_available(partner, @usage)}") do %>
         <%= partner.max_monthly_referrals - (@usage[partner.slug] || 0) %>
       <% end %>
 
-      <div class="md fr1 stat-sm white bg-black mb20">
+      <%= tag.div(id: "#{partner.slug}-used-referrals", class: "md fr1 stat-sm white bg-black mb20") do %>
         <%=(@usage[partner.slug] || 0) %>
-      </div>
+      <% end %>
 
     </div>
 

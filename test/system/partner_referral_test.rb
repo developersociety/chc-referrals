@@ -26,7 +26,7 @@ class PartnerReferralTest < ApplicationSystemTestCase
 
     send_fake_webhook_request(@partner)
 
-    within('#available-referrals') { assert_text('9') }
+    within("##{@partner.slug}-available-referrals") { assert_text('9') }
     within("##{@partner.slug}-used-referrals") { assert_text('1') }
   end
 
@@ -41,12 +41,12 @@ class PartnerReferralTest < ApplicationSystemTestCase
     @partner.update(max_monthly_referrals: 0)
     visit new_partner_referral_path(@partner)
 
-    within('#available-referrals') { assert_text('0') }
+    within("##{@partner.slug}-available-referrals") { assert_text('0') }
     assert_selector('.bg-red', count: 1)
 
     send_fake_webhook_request(@partner)
 
-    within('#available-referrals') { assert_text('-1') }
+    within("##{@partner.slug}-available-referrals") { assert_text('-1') }
     assert_selector('.bg-red', count: 1)
   end
 
@@ -55,7 +55,7 @@ class PartnerReferralTest < ApplicationSystemTestCase
     create(:referral, partner: @partner, last_state: 'accepted')
     create(:referral, partner: @partner, last_state: 'declined')
     visit new_partner_referral_path(@partner)
-    within('#available-referrals') { assert_text('8') }
+    within("##{@partner.slug}-available-referrals") { assert_text('8') }
   end
 
   test 'real time update per Partner' do
