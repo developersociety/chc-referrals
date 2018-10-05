@@ -72,6 +72,29 @@ class PartnerReferralTest < ApplicationSystemTestCase
     assert_text('No more referral slots available this month.')
   end
 
+  test 'hides list if logged out' do
+    visit new_partner_referral_path(@partner)
+    assert_no_text('Sent Referrals')
+  end
+
+  test 'hides list if no referrals' do
+    @user = create(:user)
+    visit new_user_session_path
+    sign_in
+    visit new_partner_referral_path(@partner)
+    assert_no_text('Sent Referrals')
+  end
+
+  test 'shows list if logged in and referrals present' do
+    create(:referral, partner: @partner)
+    @user = create(:user)
+    visit new_user_session_path
+    sign_in
+    visit new_partner_referral_path(@partner)
+    assert_text('Sent Referrals')
+    assert_selector('.row.with-border', count: 1)
+  end
+
   def send_fake_webhook_request(partner)
     fake_webhook_request(
       webhooks_new_response_path(partner.webhook_token),

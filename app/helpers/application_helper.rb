@@ -8,8 +8,7 @@ module ApplicationHelper
     status == 'review' ? 'with-bg-black': 'with-bg'
   end
 
-  def status_text(status)
-    classes = 'sm f1 truncate'
+  def status_text(status, classes: 'sm f1 truncate')
     classes << ' red' if status == 'declined'
     tag.span(status.capitalize, class: classes)
   end

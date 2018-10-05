@@ -9,7 +9,7 @@
   <% end %>
 </div>
 
-<div class="row with-gutter wrap">
+<div class="row with-gutter wrap mb20">
 
   <div class="fr2 mb20">
     <h2 class="mb20"><br/></h2>
@@ -35,6 +35,30 @@
   </div>
 
 </div>
+
+<% if user_signed_in? && @partner.referrals.any? %>
+  <h2 class="bold px15">Sent Referrals</h2>
+
+  <div class="row bold h2">
+    <div class="sm fr2 truncate">Name</div>
+    <div class="sm fr1 truncate">Status</div>
+    <div class="sm fr1 truncate">Date</div>
+  </div>
+
+  <% @partner.referrals.order(created_at: :desc).each do |r| %>
+
+    <div class="row with-border h3 mb10">
+      <span class="sm fr2 truncate bold">
+        <%= r.response_identifier %>
+      </span>
+      <%= status_text(r.last_state, classes: "sm fr1 truncate") %>
+      <span class="sm fr1 truncate">
+        <%= r.created_at.strftime('%d / %m / %y') %>
+      </span>
+    </div>
+
+  <% end %>
+<% end %>
 
 <script src="https://embed.typeform.com/embed.js" type="text/javascript"></script>
 <script type="text/javascript">
