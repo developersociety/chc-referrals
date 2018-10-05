@@ -1,0 +1,30 @@
+<section class="px15 bg-white">
+  <div class="mw-767 mx-auto py40">
+
+    <h1 class="h2 bold mt40 mb20 center">Welcome to Cardinal Hume Centre Referral Sytem</h1>
+
+    <h2 class="h3 mb40 center">Login here:</h2>
+
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-inputs mw-370 mx-auto">
+        <%= f.input :email,
+                    required: false,
+                    autofocus: true,
+                    input_html: { autocomplete: "email", class: "rounded mb20" } %>
+        <%= f.input :password,
+                    required: false,
+                    input_html: { autocomplete: "current-password", class: "rounded mb20" } %>
+        <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+      </div>
+
+      <div class="form-actions mw-370 mx-auto mb20">
+        <%= f.button :submit, "Log in" %>
+      </div>
+    <% end %>
+
+    <div class="mw-370 mx-auto">
+      <%= render "devise/shared/links" %>
+    </div>
+
+  </div>
+</section>

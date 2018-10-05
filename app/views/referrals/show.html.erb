@@ -1,0 +1,74 @@
+<div class="mt50 mb20">
+  <%= link_to("❮ Go back", referrals_path, class: "h1 bold underline") %>
+</div>
+
+<div class="row bold h2">
+  <div class="sm f1 truncate">Identifier</div>
+  <div class="sm f1 truncate">Partner</div>
+  <div class="sm f1 truncate">Status</div>
+  <div class="sm f1 truncate">Date</div>
+</div>
+
+<div class="row with-bg h3 black mb20">
+  <span class="sm f1 truncate bold">
+    <%= @referral.response_identifier %>
+  </span>
+  <span class="sm f1 truncate">
+    <%= @referral.partner.name %>
+  </span>
+  <%= status_text(@referral.last_state) %>
+  <span class="sm f1 truncate">
+    <%= @referral.created_at.strftime('%d / %m / %y') %>
+  </span>
+</div>
+
+<div class="mb20 bg-white rounded">
+  <% @referral.response_answers&.each do |question, answer| %>
+    <div class="answer">
+      <strong><%= question %></strong>
+      <p><%= answer %></p>
+    </div>
+  <% end %>
+</div>
+
+<h2 class="bold mb20">Status changes</h2>
+
+<% @referral.reviews.each do |review| %>
+  <div class="mb20">
+    <small class="block mb10">
+      <%= review.user.first_name.capitalize %>
+      <%= review.state %>
+      <%= time_ago_in_words(review.created_at) %> ago
+    </small>
+    <% if review.notes.present? %>
+      <div class="p15 bg-white rounded">
+        <strong>Note:</strong>
+        <p><%= review.notes %></p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="p15 bg-white rounded">
+  <h3 class="bold mb20">Change status</h3>
+
+  <%= simple_form_for @referral.reviews.new, url: new_referral_review_path(@partner, @referral) do |f| %>
+    <%= f.input :notes, placeholder: "Leave a note to explain your decision.", input_html: { class: "rounded mb20" } %>
+
+    <div class="flex">
+      <% if @referral.last_state == "accepted" %>
+        <%= f.button :submit, "Accepted", class: "btn-wide", disabled: true %>
+      <% else %>
+        <%= f.button :submit, "Accept", class: "confirm btn-wide", data: { disable_with: "Accepting...", confirm: "Are you sure you want to accept this referral?" } %>
+      <% end %>
+
+      <span class="mr10"></span>
+
+      <% if @referral.last_state == "declined" %>
+        <%= f.button :submit, "Declined", class: "btn-wide", disabled: true %>
+      <% else %>
+        <%= f.button :submit, "Decline", class: "confirm btn-invert btn-wide", data: { disable_with: "Declining...", confirm: "Are you sure you want to decline this referral?" } %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

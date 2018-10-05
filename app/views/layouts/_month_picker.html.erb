@@ -1,0 +1,11 @@
+<div class="h2 bold center">
+  <% if date.month < Date.today.month %>
+    <%= link_to('❮', send(path, date: date + 1.month), class: 'yellow no-decoration') %>
+  <% else %>
+    <a class="grey no-decoration">❮</a>
+  <% end %>
+  <span class="px15">
+    <%= "#{Date::MONTHNAMES[date.month]} #{Time.zone.now.year}" %>
+  </span>
+  <%= link_to('❯', send(path, date: date - 1.month), class: 'yellow no-decoration') %>
+</div>

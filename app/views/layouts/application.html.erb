@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ChcReferrals</title>
+    <title>Cardinal Hume Centre Referral System</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,38 @@
   </head>
 
   <body>
-    <%= yield %>
+
+    <% if user_signed_in? %>
+      <nav class="px15">
+        <div class="mw-767 mx-auto flex justify-between">
+          <div>
+            <%= link_to('Slots', root_path, class: "nav-item h2 bold black mr40 #{current_page?(root_path) ? 'active' : ''}") %>
+            <%= link_to('Referrals', referrals_path, class: "nav-item h2 bold black #{current_page?(referrals_path) ? 'active' : ''}") %>
+          </div>
+          <%= link_to('Log Out', destroy_user_session_path, method: :delete, class: 'nav-item h2 bold black underline') %>
+        </div>
+      </nav>
+    <% end %>
+
+    <% if alert || notice %>
+      <section class="px15 bg-black white py15">
+        <div class="mw-767 mx-auto">
+          <%= notice %>
+          <%= alert %>
+        </div>
+      </section>
+    <% end %>
+
+    <main class="px15">
+      <div class="mw-767 mx-auto">
+        <%= yield %>
+      </div>
+    </main>
+
+    <footer class="flex justify-center items-center mt50 mb40">
+      <span class="bold h2 mr10">Powered by</span>
+      <%= image_tag('logo.png', alt: 'Cardinal Hume Centre logo', width: 135) %>
+    </footer>
+
   </body>
 </html>

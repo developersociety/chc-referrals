@@ -1,0 +1,30 @@
+<section class="px15 bg-white">
+  <div class="mw-767 mx-auto py40">
+
+    <h1 class="h2 bold mt40 mb20 center">Welcome to Cardinal Hume Centre Referral Sytem</h1>
+
+    <h2 class="h3 mb40 center">Forgot your password?</h2>
+
+    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <div class="mw-370 mx-auto">
+        <%= f.error_notification %>
+
+        <div class="form-inputs mb20">
+          <%= f.input :email,
+                      required: true,
+                      autofocus: true,
+                      input_html: { autocomplete: "email" } %>
+        </div>
+
+        <div class="form-actions mb20">
+          <%= f.button :submit, "Send reset instructions", input_html: { class: "btn" } %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="mw-370 mx-auto">
+      <%= render "devise/shared/links" %>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,50 @@
+// Config
+// ===========================================================================
+
+$black: #000000
+$grey: #A7A7A7
+$light-grey: #D9D9D9
+$maroon: #A81D44
+$off-white: #F7F7F7
+$red: #FF1010
+$white: #FFFFFF
+$yellow: #FFE629
+
+$base-radius: 5px
+
+=prefix($prop, $val, $prefixes: ())
+  @each $prefix in $prefixes
+    #{'-' + $prefix + '-' + $prop}: $val
+    #{$prop}: $val
+
+@import 'mini-reset'
+
+@import 'modules/button'
+@import 'modules/colors'
+@import 'modules/custom'
+@import 'modules/flexbox'
+@import 'modules/form'
+@import 'modules/layout'
+@import 'modules/typography'
+
+// Base
+// ===========================================================================
+
+html, body
+  background: $off-white
+  color: $black
+  font-size: 16px
+  -moz-osx-font-smoothing: grayscale
+  -webkit-font-smoothing: antialiased
+
+a
+  color: $maroon
+  text-decoration: none
+  &:hover
+    text-decoration: underline
+
+// Misc.
+// ===========================================================================
+
+.rounded
+  +prefix(border-radius, $base-radius, moz webkit)

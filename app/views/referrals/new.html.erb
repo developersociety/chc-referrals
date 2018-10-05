@@ -1,0 +1,75 @@
+<div class="py40">
+  <% if @partner.can_accept_referrals? %>
+    <%= tag.div(id: "typeform", data: { form_url: @partner.form_url }) %>
+  <% else %>
+    <div class="center">
+      No more referral slots available this month.
+      <%= tag.a('Make an Emergency referral', href: @partner.form_url, target: '_blank') %>
+    </div>
+  <% end %>
+</div>
+
+<div class="row with-gutter wrap mb20">
+
+  <div class="fr2 mb20">
+    <h2 class="mb20"><br/></h2>
+    <div class="lg">
+      Available referrals for
+      <%= "#{Date::MONTHNAMES[@date.month]} #{Time.zone.now.year}" %>
+    </div>
+  </div>
+
+  <div class="fr1 mb20">
+    <h2 class="bold center mb20">Available</h2>
+    <%= tag.div(id: "#{@partner.slug}-available-referrals", class: "lg stat-lg#{@total_available <= 0 ? ' white bg-red' : '' }") do %>
+      <%= @total_available %>
+    <% end %>
+  </div>
+
+  <div class="fr1 mb20">
+    <h2 class="bold center mb20">Sent</h2>
+    <%= tag.div(
+      @referrals.size, id: "#{@partner.slug}-used-referrals",
+      class: "lg stat-lg white bg-black"
+    ) %>
+  </div>
+
+</div>
+
+<% if user_signed_in? && @partner.referrals.any? %>
+  <h2 class="bold px15">Sent Referrals</h2>
+
+  <div class="row bold h2">
+    <div class="sm fr2 truncate">Name</div>
+    <div class="sm fr1 truncate">Status</div>
+    <div class="sm fr1 truncate">Date</div>
+  </div>
+
+  <% @partner.referrals.order(created_at: :desc).each do |r| %>
+
+    <div class="row with-border h3 mb10">
+      <span class="sm fr2 truncate bold">
+        <%= r.response_identifier %>
+      </span>
+      <%= status_text(r.last_state, classes: "sm fr1 truncate") %>
+      <span class="sm fr1 truncate">
+        <%= r.created_at.strftime('%d / %m / %y') %>
+      </span>
+    </div>
+
+  <% end %>
+<% end %>
+
+<script src="https://embed.typeform.com/embed.js" type="text/javascript"></script>
+<script type="text/javascript">
+  window.addEventListener("DOMContentLoaded", function() {
+    var el = document.getElementById("typeform");
+    if (el) {
+      window.typeformEmbed.makeWidget(el, el.dataset.formUrl, {
+        hideFooter: true,
+        hideHeaders: true,
+        opacity: 0
+      });
+    }
+  });
+</script>
