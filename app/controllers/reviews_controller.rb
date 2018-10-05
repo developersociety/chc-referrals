@@ -2,7 +2,8 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @referral = Referral.find_by(sequential_id: params[:id])
+    @partner = Partner.active.find_by(slug: params[:slug])
+    @referral = @partner.referrals.find_by(sequential_id: params[:id])
     render_status(404) if @referral.nil?
 
     @review = @referral.reviews.new(form_params)
@@ -10,7 +11,7 @@ class ReviewsController < ApplicationController
     @review.user = current_user
 
     if @review.save
-      redirect_to referral_path(@referral.partner, @referral)
+      redirect_to referral_path(@partner, @referral)
     else
       render '/referrals/show'
     end

@@ -9,8 +9,8 @@ Rails.application.routes.draw do
   get '/referrals', to: 'referrals#index', as: 'referrals'
   get '/:slug/referrals/:id', to: 'referrals#show', as: 'referral'
 
-  get  '/referral/:id/reviews/new', to: 'reviews#new', as: 'new_referral_review'
-  post '/referral/:id/reviews/new', to: 'reviews#create'
+  get  '/:slug/referral/:id/reviews/new', to: 'reviews#new', as: 'new_referral_review'
+  post '/:slug/referral/:id/reviews/new', to: 'reviews#create'
 
   post '/webhooks/new-response/:token', to: 'webhooks#new_response', as: 'webhooks_new_response'
 end

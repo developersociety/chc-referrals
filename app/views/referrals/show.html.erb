@@ -49,23 +49,26 @@
   </div>
 <% end %>
 
-<%# TODO: style form %>
 <div class="p15 bg-white rounded">
   <h3 class="bold mb20">Change status</h3>
 
-  <%= simple_form_for @referral.reviews.new, url: new_referral_review_path(@referral) do |f| %>
-    <%= f.input :notes %>
+  <%= simple_form_for @referral.reviews.new, url: new_referral_review_path(@partner, @referral) do |f| %>
+    <%= f.input :notes, placeholder: "Leave a note to explain your decision.", input_html: { class: "rounded mb20" } %>
 
-    <% if @referral.last_state == 'accepted' %>
-      <%= f.button :submit, value: 'Accepted', disabled: true %>
-    <% else %>
-      <%= f.button :submit, value: 'Accept', data: { disable_with: 'Accepting...', confirm: 'Are you sure you want to accept this referral?' }, class: 'confirm' %>
-    <% end %>
+    <div class="flex">
+      <% if @referral.last_state == "accepted" %>
+        <%= f.button :submit, "Accepted", class: "btn-wide", disabled: true %>
+      <% else %>
+        <%= f.button :submit, "Accept", class: "confirm btn-wide", data: { disable_with: "Accepting...", confirm: "Are you sure you want to accept this referral?" } %>
+      <% end %>
 
-    <% if @referral.last_state == 'declined' %>
-      <%= f.button :submit, value: 'Declined', disabled: true %>
-    <% else %>
-      <%= f.button :submit, value: 'Decline', data: { disable_with: 'Declining...', confirm: 'Are you sure you want to decline this referral?' }, class: 'confirm' %>
-    <% end %>
+      <span class="mr10"></span>
+
+      <% if @referral.last_state == "declined" %>
+        <%= f.button :submit, "Declined", class: "btn-wide", disabled: true %>
+      <% else %>
+        <%= f.button :submit, "Decline", class: "confirm btn-invert btn-wide", data: { disable_with: "Declining...", confirm: "Are you sure you want to decline this referral?" } %>
+      <% end %>
+    </div>
   <% end %>
 </div>
