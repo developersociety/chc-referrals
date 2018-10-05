@@ -13,7 +13,7 @@
 
   <div class="fr1 mb20">
     <h2 class="bold center mb20">Available</h2>
-    <%= tag.div(id: "all-available-referrals", class: "lg stat-lg#{@total_available.zero? ? ' white bg-red' : ''}") do %>
+    <%= tag.div(id: "all-available-referrals", class: "lg stat-lg#{@total_available <= 0 ? ' white bg-red' : ''}") do %>
       <%= @total_available %>
     <% end %>
   </div>

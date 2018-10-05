@@ -1,7 +1,7 @@
 module ApplicationHelper
   def classes_none_available(partner, usage)
     available = partner.max_monthly_referrals - (usage[partner.slug] || 0)
-    ' white bg-red' if available.zero?
+    ' white bg-red' if available <= 0
   end
 
   def requires_review(status)

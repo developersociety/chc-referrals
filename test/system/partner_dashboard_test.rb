@@ -32,16 +32,17 @@ class PartnerDashboardTest < ApplicationSystemTestCase
 
   test 'red background when all Referral slots taken' do
     @partner.update(max_monthly_referrals: 0)
-    visit new_partner_referral_path(@partner)
+    visit root_path
+    sign_in
 
     within("##{@partner.slug}-available-referrals") { assert_text('0') }
-    assert_selector('.bg-red', count: 1)
+    assert_selector('.bg-red', count: 2)
 
     create(:referral, partner: @partner)
-    visit new_partner_referral_path(@partner)
+    visit root_path
 
     within("##{@partner.slug}-available-referrals") { assert_text('-1') }
-    assert_selector('.bg-red', count: 1)
+    assert_selector('.bg-red', count: 2)
   end
 
   test 'can visit new_partner_referall_path' do
