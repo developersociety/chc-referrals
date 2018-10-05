@@ -1,5 +1,5 @@
 {
-  "name": "Cardinal Hume Centre Referral System",
+  "name": "CHC Referral System",
   "description": "A referral system for charities working together providing immigration advice and legal aid in London.",
   "repository": "https://github.com/TechforgoodCAST/chc-referrals",
   "keywords": ["ruby", "rails", "tech-for-good"]
