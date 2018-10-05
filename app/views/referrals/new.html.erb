@@ -21,7 +21,7 @@
 
   <div class="fr1 mb20">
     <h2 class="bold center mb20">Available</h2>
-    <%= tag.div(id: "available-referrals", class: "lg stat-lg#{@total_available.zero? ? ' white bg-red' : ''}") do %>
+    <%= tag.div(id: "available-referrals", class: "lg stat-lg#{@total_available <= 0 ? ' white bg-red' : '' }") do %>
       <%= @total_available %>
     <% end %>
   </div>
@@ -43,7 +43,8 @@
     if (el) {
       window.typeformEmbed.makeWidget(el, el.dataset.formUrl, {
         hideFooter: true,
-        hideHeaders: true
+        hideHeaders: true,
+        opacity: 0
       });
     }
   });

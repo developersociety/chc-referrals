@@ -37,6 +37,19 @@ class PartnerReferralTest < ApplicationSystemTestCase
     assert_link('Make an Emergency referral')
   end
 
+  test 'red background when all Referral slots taken' do
+    @partner.update(max_monthly_referrals: 0)
+    visit new_partner_referral_path(@partner)
+
+    within('#available-referrals') { assert_text('0') }
+    assert_selector('.bg-red', count: 1)
+
+    send_fake_webhook_request(@partner)
+
+    within('#available-referrals') { assert_text('-1') }
+    assert_selector('.bg-red', count: 1)
+  end
+
   test 'shows remaining availability' do
     create(:referral, partner: @partner)
     create(:referral, partner: @partner, last_state: 'accepted')
@@ -58,8 +71,6 @@ class PartnerReferralTest < ApplicationSystemTestCase
     send_fake_webhook_request(@partner)
     assert_text('No more referral slots available this month.')
   end
-
-  test 'emergency referall displayed as?'
 
   def send_fake_webhook_request(partner)
     fake_webhook_request(
