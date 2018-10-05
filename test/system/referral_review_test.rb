@@ -70,7 +70,29 @@ class ReferralReviewTest < ApplicationSystemTestCase
     assert_text("The page you were looking for doesn't exist.")
   end
 
-  test 'status_text(declined) is red on index and show'
-  test '#requires_review(state) referrals to review are black'
-  test 'referrals has underline'
+  test 'red text when declined on index' do
+    @referral.update(last_state: 'declined')
+    visit referrals_path
+    sign_in
+    assert_selector('.red', text: 'Declined')
+  end
+
+  test 'red text when declined on show' do
+    @referral.update(last_state: 'declined')
+    visit referral_path(@partner, @referral)
+    sign_in
+    assert_selector('.red', text: 'Declined')
+  end
+
+  test '#requires_review(state) referrals to review are black' do
+    visit referral_path(@partner, @referral)
+    sign_in
+    assert_selector('.white.bg-black', count: 1)
+  end
+
+  test 'referrals has underline' do
+    visit referrals_path
+    sign_in
+    assert_selector('a', text: 'Referrals', class: 'active')
+  end
 end
