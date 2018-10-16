@@ -60,11 +60,12 @@ class ReferralTest < ActiveSupport::TestCase
   end
 
   test '#response_answers found' do
-    assert_equal({ 'q1' => 'a1', 'q2' => 'a2' }, @subject.response_answers)
+    answers = { 'q1' => 'text', 'q2' => 'Yes', 'q3' => 'choice' }
+    assert_equal(answers, @subject.response_answers)
   end
 
   test '#response_identifier found' do
-    assert_equal('a1', @subject.response_identifier)
+    assert_equal('text', @subject.response_identifier)
   end
 
   test '#response_identifier not found' do
