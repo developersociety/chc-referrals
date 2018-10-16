@@ -51,7 +51,7 @@ class ReferralReviewTest < ApplicationSystemTestCase
   test 'lists answers' do
     visit referral_path(@partner, @referral)
     sign_in
-    %w[q1 a1 q2 a2].each { |t| assert_text(t) }
+    %w[q1 text q2 Yes q3 choice].each { |t| assert_text(t) }
   end
 
   test 'not signed in referrals_path' do

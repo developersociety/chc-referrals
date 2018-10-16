@@ -54,8 +54,9 @@ class Referral < ApplicationRecord
 
   def extract_values(array)
     array&.map do |hash|
-      hash[:text] || hash[:email] || hash[:date] || hash[:number] ||
-        hash[:boolean] || hash[:choices] || hash[:choice]
+      hash[:text] || hash[:email] || hash[:date] ||
+        hash[:number] || hash[:choices] ||
+        parse_choice(hash[:choice]) || parse_boolean(hash[:boolean])
     end
   end
 
@@ -67,5 +68,13 @@ class Referral < ApplicationRecord
     else
       'review'
     end
+  end
+
+  def parse_boolean(val)
+    { true => 'Yes', false => 'No' }[val]
+  end
+
+  def parse_choice(val)
+    val&.fetch(:label, nil)
   end
 end
