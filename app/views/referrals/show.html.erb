@@ -56,18 +56,18 @@
     <%= f.input :notes, placeholder: "Leave a note to explain your decision.", input_html: { class: "rounded mb20" } %>
 
     <div class="flex">
-      <% if @referral.last_state == "accepted" %>
-        <%= f.button :submit, "Accepted", class: "btn-wide", disabled: true %>
-      <% else %>
-        <%= f.button :submit, "Accept", class: "confirm btn-wide", data: { disable_with: "Accepting...", confirm: "Are you sure you want to accept this referral?" } %>
-      <% end %>
-
-      <span class="mr10"></span>
-
       <% if @referral.last_state == "declined" %>
         <%= f.button :submit, "Declined", class: "btn-wide", disabled: true %>
       <% else %>
         <%= f.button :submit, "Decline", class: "confirm btn-invert btn-wide", data: { disable_with: "Declining...", confirm: "Are you sure you want to decline this referral?" } %>
+      <% end %>
+
+      <span class="mr10"></span>
+
+      <% if @referral.last_state == "accepted" %>
+        <%= f.button :submit, "Accepted", class: "btn-wide", disabled: true %>
+      <% else %>
+        <%= f.button :submit, "Accept", class: "confirm btn-wide", data: { disable_with: "Accepting...", confirm: "Are you sure you want to accept this referral?" } %>
       <% end %>
     </div>
   <% end %>
