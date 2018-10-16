@@ -1,3 +1,5 @@
+<h1 class="h2 bold maroon mt40"><%= @partner.name %></h1>
+
 <div class="py40">
   <% if @partner.can_accept_referrals? %>
     <%= tag.div(id: "typeform", data: { form_url: @partner.form_url }) %>
@@ -37,7 +39,7 @@
 </div>
 
 <% if user_signed_in? && @partner.referrals.any? %>
-  <h2 class="bold px15">Sent Referrals</h2>
+  <h2 class="bold px15 maroon">Sent Referrals</h2>
 
   <div class="row bold h2">
     <div class="sm fr2 truncate">Name</div>
