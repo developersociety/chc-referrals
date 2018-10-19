@@ -72,11 +72,6 @@ class PartnerReferralTest < ApplicationSystemTestCase
     assert_text('No more referral slots available this month.')
   end
 
-  test 'hides list if logged out' do
-    visit new_partner_referral_path(@partner)
-    assert_no_text('Sent Referrals')
-  end
-
   test 'hides list if no referrals' do
     @user = create(:user)
     visit new_user_session_path
