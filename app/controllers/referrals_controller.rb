@@ -5,7 +5,7 @@ class ReferralsController < ApplicationController
 
   def new
     if @partner
-      @referrals = @partner.referrals.by_month(Time.zone.now.month)
+      @referrals = @partner.referrals.by_month(@date.month)
       @used_referrals = @referrals.used
       @total_available = @partner.max_monthly_referrals - @used_referrals.size
     else

@@ -29,37 +29,43 @@
   </div>
 
   <div class="fr1 mb20">
-    <h2 class="bold center mb20">Sent</h2>
+    <h2 class="bold center mb20">Used</h2>
     <%= tag.div(
-      @referrals.size, id: "#{@partner.slug}-used-referrals",
+      @used_referrals.size, id: "#{@partner.slug}-used-referrals",
       class: "lg stat-lg white bg-black"
     ) %>
   </div>
 
 </div>
 
-<% if @partner.referrals.any? %>
-  <h2 class="bold px15 maroon">Sent Referrals</h2>
+<% if @referrals.any? %>
+  <div class="mb40">
+    <h2 class="bold px15 maroon">Sent Referrals</h2>
 
-  <div class="row bold h2">
-    <div class="sm fr2 truncate">Name</div>
-    <div class="sm fr1 truncate">Status</div>
-    <div class="sm fr1 truncate">Date</div>
-  </div>
-
-  <% @partner.referrals.order(created_at: :desc).each do |r| %>
-
-    <div class="row with-border h3 mb10">
-      <span class="sm fr2 truncate bold">
-        <%= r.response_identifier %>
-      </span>
-      <%= status_text(r.last_state, classes: "sm fr1 truncate") %>
-      <span class="sm fr1 truncate">
-        <%= r.created_at.strftime('%d / %m / %y') %>
-      </span>
+    <div class="row bold h2">
+      <div class="sm fr2 truncate">Name</div>
+      <div class="sm fr1 truncate">Status</div>
+      <div class="sm fr1 truncate">Date</div>
     </div>
 
-  <% end %>
+    <% @referrals.order(created_at: :desc).each do |r| %>
+
+      <div class="row with-border h3 mb10">
+        <span class="sm fr2 truncate bold">
+          <%= r.response_identifier %>
+        </span>
+        <%= status_text(r.last_state, classes: "sm fr1 truncate") %>
+        <span class="sm fr1 truncate">
+          <%= r.created_at.strftime('%d / %m / %y') %>
+        </span>
+      </div>
+
+    <% end %>
+    </div>
+<% end %>
+
+<% if user_signed_in? %>
+  <%= render(partial: 'layouts/month_picker', locals: { date: @date, path: :new_partner_referral_path }) %>
 <% end %>
 
 <script src="https://embed.typeform.com/embed.js" type="text/javascript"></script>

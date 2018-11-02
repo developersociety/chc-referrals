@@ -73,21 +73,32 @@ class PartnerReferralTest < ApplicationSystemTestCase
   end
 
   test 'hides list if no referrals' do
-    @user = create(:user)
-    visit new_user_session_path
-    sign_in
+    sign_in_user
     visit new_partner_referral_path(@partner)
     assert_no_text('Sent Referrals')
   end
 
   test 'shows list if logged in and referrals present' do
     create(:referral, partner: @partner)
-    @user = create(:user)
-    visit new_user_session_path
-    sign_in
+    sign_in_user
     visit new_partner_referral_path(@partner)
     assert_text('Sent Referrals')
     assert_selector('.row.with-border', count: 1)
+  end
+
+  test 'month picker hidden when logged out' do
+    visit new_partner_referral_path(@partner)
+    assert_text(month_name, count: 1)
+  end
+
+  test 'month picker shown when logged in' do
+    sign_in_user
+    visit new_partner_referral_path(@partner)
+    assert_text(month_name, count: 2)
+  end
+
+  def month_name
+    Date::MONTHNAMES[Date.today.month]
   end
 
   def send_fake_webhook_request(partner)
@@ -96,5 +107,11 @@ class PartnerReferralTest < ApplicationSystemTestCase
       headers: { 'Content-Type' => 'application/json' },
       body: { event_id: 'LtWXD3crgy' }
     )
+  end
+
+  def sign_in_user
+    @user = create(:user)
+    visit new_user_session_path
+    sign_in
   end
 end
