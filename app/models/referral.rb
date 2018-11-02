@@ -4,7 +4,7 @@ class Referral < ApplicationRecord
   belongs_to :partner
   acts_as_sequenced scope: :partner_id
 
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
 
   validates :last_state, inclusion: { in: STATES }
   validates :original_response, presence: true

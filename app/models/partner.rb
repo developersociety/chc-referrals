@@ -1,5 +1,5 @@
 class Partner < ApplicationRecord
-  has_many :referrals
+  has_many :referrals, dependent: :destroy
 
   has_secure_token :webhook_token
 

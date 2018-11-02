@@ -7,5 +7,5 @@
   <span class="px15">
     <%= "#{Date::MONTHNAMES[date.month]} #{Time.zone.now.year}" %>
   </span>
-  <%= link_to('❯', send(path, date: date - 1.month), class: 'yellow no-decoration') %>
+  <%= link_to('❯', send(path, date: date - 1.month), class: 'yellow no-decoration', data: { turbolinks: false }) %>
 </div>
