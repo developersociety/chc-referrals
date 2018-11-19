@@ -37,11 +37,11 @@ Prerequisites: [Ruby v2.5.1](https://www.ruby-lang.org), [Bundler](https://bundl
 
 First of all, **thank you** for your help!
 
-Be sure to check out the projects open [issues](https://github.com/suninthesky/slice-and-dice/issues) to see where help is needed.
+Be sure to check out the projects open [issues](https://github.com/TechforgoodCAST/chc-referrals/issues) to see where help is needed.
 
 ### Bugs
 
-If you've spotted a bug please file an [issue](https://github.com/suninthesky/slice-and-dice/issues). Even better, submit a [pull request](https://github.com/suninthesky/slice-and-dice/pulls) (details below) with a patch.
+If you've spotted a bug please file an [issue](https://github.com/TechforgoodCAST/chc-referrals/issues). Even better, submit a [pull request](https://github.com/TechforgoodCAST/chc-referrals/pulls) (details below) with a patch.
 
 ### Features
 
@@ -51,9 +51,9 @@ If you want a feature added, the best way to get it done is to submit a pull req
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
-5. Create a [pull request](https://github.com/suninthesky/slice-and-dice/pulls)
+5. Create a [pull request](https://github.com/TechforgoodCAST/chc-referrals/pulls)
 
-Alternatively you can submit an [issue](https://github.com/suninthesky/slice-and-dice/issues) describing the feature.
+Alternatively you can submit an [issue](https://github.com/TechforgoodCAST/chc-referrals/issues) describing the feature.
 
 ## License
 
