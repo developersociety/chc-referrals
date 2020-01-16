@@ -35,6 +35,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'activeadmin'
 gem 'devise'
+gem 'rollbar'
 gem 'sequenced'
 gem 'simple_form'
 
