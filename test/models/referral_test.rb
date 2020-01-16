@@ -13,8 +13,15 @@ class ReferralTest < ActiveSupport::TestCase
 
   test 'self#by_month' do
     @subject.save!
-    query = @subject.class.by_month(Time.zone.now.month)
+    query = @subject.class.by_month(Date.today)
     assert_equal(1, query.size)
+  end
+
+  test 'self#by_month raise' do
+    @subject.save!
+    assert_raises 'Argument `date` does not respond to `:strftime` method' do
+      @subject.class.by_month(nil)
+    end
   end
 
   test 'self#used' do

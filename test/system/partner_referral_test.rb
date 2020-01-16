@@ -18,12 +18,6 @@ class PartnerReferralTest < ApplicationSystemTestCase
 
   test 'make Referral' do
     visit new_partner_referral_path(@partner)
-
-    page.within_frame(find('iframe')) do
-      find('.general').click
-      find('.submit', visible: false).click
-    end
-
     send_fake_webhook_request(@partner)
 
     within("##{@partner.slug}-available-referrals") { assert_text('9') }
