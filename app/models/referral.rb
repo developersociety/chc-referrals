@@ -9,8 +9,10 @@ class Referral < ApplicationRecord
   validates :last_state, inclusion: { in: STATES }
   validates :original_response, presence: true
 
-  def self.by_month(month, col: 'created_at')
-    where("extract(month from #{col}) = ?", month)
+  def self.by_month(date, col: 'created_at')
+    raise 'Argument `date` does not respond to `:strftime` method' unless date.respond_to?(:strftime)
+
+    where("extract(month from #{col}) = ? AND extract(year from #{col}) = ?", date.month, date.year)
   end
 
   def self.used

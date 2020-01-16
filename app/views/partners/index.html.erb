@@ -1,5 +1,5 @@
 <h1 class="bold maroon mt50 mb40">
-  <%= "#{Date::MONTHNAMES[@date.month]} Referrals #{Time.zone.now.year}" %>
+  <%= "#{Date::MONTHNAMES[@date.month]} Referrals #{@date.year}" %>
 </h1>
 
 <div class="row with-gutter wrap">
@@ -7,7 +7,7 @@
   <div class="fr2 mb20">
     <h2 class="mb20"><br/></h2>
     <div class="lg">
-      All referrals (<%= Referral.by_month(@date.month).size %> in total)
+      All referrals (<%= Referral.by_month(@date).size %> in total)
     </div>
   </div>
 

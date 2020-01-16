@@ -18,7 +18,7 @@ class Partner < ApplicationRecord
   end
 
   def can_accept_referrals?
-    referrals.used.by_month(Time.zone.now.month).size < max_monthly_referrals
+    referrals.used.by_month(Time.zone.now).size < max_monthly_referrals
   end
 
   def name=(str)

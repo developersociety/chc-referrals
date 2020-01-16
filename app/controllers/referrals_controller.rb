@@ -5,7 +5,7 @@ class ReferralsController < ApplicationController
 
   def new
     if @partner
-      @referrals = @partner.referrals.by_month(@date.month)
+      @referrals = @partner.referrals.by_month(@date)
       @used_referrals = @referrals.used
       @total_available = @partner.max_monthly_referrals - @used_referrals.size
     else
@@ -14,7 +14,7 @@ class ReferralsController < ApplicationController
   end
 
   def index
-    @referrals = Referral.order(created_at: :desc).by_month(@date.month)
+    @referrals = Referral.order(created_at: :desc).by_month(@date)
   end
 
   def show
