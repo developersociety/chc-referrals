@@ -36,4 +36,10 @@ class MonthPickerTest < ApplicationSystemTestCase
     sign_in
     assert_text('No referrals this month.')
   end
+
+  test 'invalid date returns current day' do
+    visit root_path(date: '2020-1')
+    sign_in
+    assert_text("#{Date::MONTHNAMES[Date.today.month]} Referrals #{Date.today.year}")
+  end
 end
