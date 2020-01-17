@@ -1,9 +1,7 @@
 class PartnersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :parse_date
 
   def index
-    @date = params[:date]&.to_date || Date.today
-
     @usage ||= Referral.joins(:partner).used
                        .by_month(@date, col: 'referrals.created_at')
                        .group('partners.slug').size

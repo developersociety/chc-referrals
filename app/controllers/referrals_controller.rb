@@ -27,8 +27,4 @@ class ReferralsController < ApplicationController
   def load_partner
     @partner = Partner.active.find_by(slug: params[:slug])
   end
-
-  def parse_date
-    @date = params[:date]&.to_date || Date.today
-  end
 end
