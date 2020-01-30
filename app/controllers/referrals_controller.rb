@@ -19,6 +19,7 @@ class ReferralsController < ApplicationController
 
   def show
     @referral = @partner.referrals.find_by(sequential_id: params[:id])
+    @users = User.all - User.joins(:assignments).where('referral_id = ?', @referral)
     render_status(404) if @referral.nil?
   end
 

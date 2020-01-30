@@ -1,5 +1,5 @@
 <div class="mt50 mb20">
-  <%= link_to("❮ Go back", referrals_path, class: "h1 bold underline") %>
+  <%= link_to("❮ Back to referrals", referrals_path, class: "bold underline") %>
 </div>
 
 <div class="row bold h2">
@@ -49,7 +49,7 @@
   </div>
 <% end %>
 
-<div class="p15 bg-white rounded">
+<div class="p15 bg-white rounded mb20">
   <h3 class="bold mb20">Change status</h3>
 
   <%= simple_form_for @referral.reviews.new, url: new_referral_review_path(@partner, @referral) do |f| %>
@@ -70,5 +70,25 @@
         <%= f.button :submit, "Accept", class: "confirm btn-wide", data: { disable_with: "Accepting...", confirm: "Are you sure you want to accept this referral?" } %>
       <% end %>
     </div>
+  <% end %>
+</div>
+
+<div class="p15 bg-white rounded">
+  <h3 class="bold mb20">Assignees</h3>
+  <%- if @referral.assignees.any? %>
+    <ul class="mb20">
+      <%- @referral.assignees.each do |user| %>
+        <li><%= user.full_name %> <%= link_to '(Unassign)', assignment_path(@referral.partner, @referral, user), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="mb20"><em>None</em></p>
+  <% end %>
+
+  <p><strong>Assign advisor</strong></p>
+
+  <%= simple_form_for Assignment.new, url: new_assignment_path(@partner, @referral) do |f| %>
+    <%= f.input :user_id, collection: @users, label_method: :full_name, label: false, wrapper_html: { style: "display: inline-block" } %>
+    <%= f.button :submit, "Assign", class: "no-style", data: { disable_with: "Assigning..." } %>
   <% end %>
 </div>

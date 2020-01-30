@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_02_130404) do
+ActiveRecord::Schema.define(version: 2020_01_23_160154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,10 +41,19 @@ ActiveRecord::Schema.define(version: 2018_10_02_130404) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "assignments", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "referral_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["referral_id"], name: "index_assignments_on_referral_id"
+    t.index ["user_id"], name: "index_assignments_on_user_id"
+  end
+
   create_table "partners", force: :cascade do |t|
     t.boolean "accepting_referrals", default: true, null: false
-    t.string "form_url", null: false
     t.string "form_identifier"
+    t.string "form_url", null: false
     t.string "name", null: false
     t.integer "max_monthly_referrals", null: false
     t.string "slug", null: false
@@ -99,6 +108,8 @@ ActiveRecord::Schema.define(version: 2018_10_02_130404) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "assignments", "referrals"
+  add_foreign_key "assignments", "users"
   add_foreign_key "referrals", "partners"
   add_foreign_key "reviews", "referrals"
   add_foreign_key "reviews", "users"

@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :referral do
+    partner
     original_response do
       {
         form_response: {
