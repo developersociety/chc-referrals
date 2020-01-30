@@ -12,5 +12,9 @@ Rails.application.routes.draw do
   get  '/:slug/referral/:id/reviews/new', to: 'reviews#new', as: 'new_referral_review'
   post '/:slug/referral/:id/reviews/new', to: 'reviews#create'
 
+  get    '/:slug/referrals/:id/assignments/new', to: 'assignments#new', as: 'new_assignment'
+  post   '/:slug/referrals/:id/assignments/new', to: 'assignments#create'
+  delete '/:slug/referrals/:id/assignments/:user_id/', to: 'assignments#destroy', as: 'assignment'
+
   post '/webhooks/new-response/:token', to: 'webhooks#new_response', as: 'webhooks_new_response'
 end
