@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   root 'partners#index'
 
+  get '/advisors', to: 'assignments#index', as: 'advisors'
+
   get '/:slug/referrals/new', to: 'referrals#new', as: 'new_partner_referral'
   get '/referrals', to: 'referrals#index', as: 'referrals'
   get '/:slug/referrals/:id', to: 'referrals#show', as: 'referral'

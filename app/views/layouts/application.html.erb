@@ -16,7 +16,8 @@
         <div class="mw-767 mx-auto flex justify-between">
           <div>
             <%= link_to('Slots', root_path, class: "nav-item h2 bold black mr40 #{current_page?(root_path) ? 'active' : ''}") %>
-            <%= link_to('Referrals', referrals_path, class: "nav-item h2 bold black #{current_page?(referrals_path) ? 'active' : ''}") %>
+            <%= link_to('Referrals', referrals_path, class: "nav-item h2 bold black mr40 #{current_page?(referrals_path) ? 'active' : ''}") %>
+            <%= link_to('Advisors', advisors_path, class: "nav-item h2 bold black #{current_page?(advisors_path) ? 'active' : ''}") %>
           </div>
           <%= link_to('Log Out', destroy_user_session_path, method: :delete, class: 'nav-item h2 bold black underline') %>
         </div>
